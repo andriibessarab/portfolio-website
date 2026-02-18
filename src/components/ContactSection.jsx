@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, Github, Linkedin, Mail, Send } from "lucide-react";
+import useIsMobile from "../hooks/useIsMobile";
 import siteData from "../../site-data";
 
 const socialIcons = {
@@ -21,17 +22,18 @@ const sectionVariants = {
 };
 
 export default function ContactSection() {
+  const isMobile = useIsMobile();
   const contact = siteData.contact;
   const form = contact.form;
 
   return (
     <motion.section
       id="contact"
-      variants={sectionVariants}
-      initial="hidden"
-      animate="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.22 }}
+      variants={isMobile ? undefined : sectionVariants}
+      initial={isMobile ? false : "hidden"}
+      animate={isMobile ? undefined : "hidden"}
+      whileInView={isMobile ? undefined : "show"}
+      viewport={isMobile ? undefined : { once: false, amount: 0.22 }}
       className="scroll-mt-24 py-16 sm:scroll-mt-28 sm:py-20"
     >
       <div className="mb-5 h-px w-full origin-left bg-gradient-to-r from-blueprint via-terminal/60 to-transparent" />

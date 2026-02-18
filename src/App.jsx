@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import useIsMobile from "./hooks/useIsMobile";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 
@@ -19,6 +20,7 @@ const waveLines = [
 
 export default function App() {
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   useLayoutEffect(() => {
     if ("scrollRestoration" in window.history) {
@@ -55,50 +57,50 @@ export default function App() {
   }, [location.pathname, location.state]);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#0F172A] text-slate-100 cad-grid-ambient">
-      <motion.div
+    <div className={`relative min-h-screen overflow-x-hidden bg-[#0F172A] text-slate-100 ${isMobile ? "cad-grid" : "cad-grid-ambient"}`}>
+      <div
         className="pointer-events-none fixed inset-0 z-0 opacity-90"
         style={{
           backgroundImage:
             "radial-gradient(circle at 20% 20%, rgba(59,130,246,0.16), transparent 35%), radial-gradient(circle at 85% 0%, rgba(16,185,129,0.14), transparent 30%)"
         }}
-        animate={{
-          backgroundPosition: ["0% 0%, 100% 0%", "4% 2%, 96% 3%", "0% 0%, 100% 0%"]
-        }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg, rgba(16,185,129,0.4) 0 1px, transparent 1px 4px)"
-        }}
-        animate={{ y: ["-2%", "2%", "-2%"], opacity: [0.04, 0.07, 0.04] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        {waveLines.map((line) => (
+      {!isMobile ? (
+        <>
           <motion.div
-            key={line.top}
-            className="absolute left-0 right-0 h-px"
+            className="pointer-events-none fixed inset-0 z-0 opacity-[0.06]"
             style={{
-              top: line.top,
-              background: `linear-gradient(90deg, transparent 0%, ${line.color} 18%, ${line.color} 82%, transparent 100%)`
+              backgroundImage:
+                "repeating-linear-gradient(0deg, rgba(16,185,129,0.4) 0 1px, transparent 1px 4px)"
             }}
-            animate={{
-              y: [0, 2, -2.5, 1.5, 0],
-              x: ["-0.8%", "0.6%", "-0.5%", "0.4%", "-0.8%"],
-              opacity: [0.12, 0.34, 0.22, 0.3, 0.12]
-            }}
-            transition={{
-              duration: line.duration,
-              delay: line.delay,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            animate={{ y: ["-2%", "2%", "-2%"], opacity: [0.04, 0.07, 0.04] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
           />
-        ))}
-      </div>
+          <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+            {waveLines.map((line) => (
+              <motion.div
+                key={line.top}
+                className="absolute left-0 right-0 h-px"
+                style={{
+                  top: line.top,
+                  background: `linear-gradient(90deg, transparent 0%, ${line.color} 18%, ${line.color} 82%, transparent 100%)`
+                }}
+                animate={{
+                  y: [0, 2, -2.5, 1.5, 0],
+                  x: ["-0.8%", "0.6%", "-0.5%", "0.4%", "-0.8%"],
+                  opacity: [0.12, 0.34, 0.22, 0.3, 0.12]
+                }}
+                transition={{
+                  duration: line.duration,
+                  delay: line.delay,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
       <div className="relative z-10">
         <CustomCursor />
         <Header />

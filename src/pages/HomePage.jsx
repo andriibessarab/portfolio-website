@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Hero from "../components/Hero";
 import FeaturedProjects from "../components/FeaturedProjects";
 import About from "../components/About";
@@ -6,6 +7,10 @@ import Skills from "../components/Skills";
 import ContactSection from "../components/ContactSection";
 
 export default function HomePage() {
+  useEffect(() => {
+    document.title = "Portfolio | Andrii Bessarab";
+  }, []);
+
   return (
     <>
       <Hero />

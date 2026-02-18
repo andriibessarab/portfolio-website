@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronsDown, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useIsMobile from "../hooks/useIsMobile";
 import siteData from "../../site-data";
 
 const sequence = {
@@ -28,6 +29,7 @@ const item = {
 
 export default function Hero() {
   const hero = siteData.hero;
+  const isMobile = useIsMobile();
   const [showScrollCue, setShowScrollCue] = useState(false);
 
   const dismissScrollCue = () => {
@@ -55,7 +57,7 @@ export default function Hero() {
       seen = false;
     }
 
-    if (!seen) {
+    if (!seen && !isMobile) {
       setShowScrollCue(true);
     }
 
@@ -67,33 +69,33 @@ export default function Hero() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section id="hero" className="relative flex min-h-screen items-center border-b border-blueprint/20 pt-20">
       <div className="pointer-events-none absolute inset-0 z-[1]">
         <motion.div
           className="absolute left-0 top-24 h-[2px] w-1/3 bg-gradient-to-r from-blueprint/90 via-blueprint/70 to-transparent shadow-[0_0_14px_rgba(59,130,246,0.45)]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: "easeOut" }}
+          initial={isMobile ? false : { opacity: 0 }}
+          whileInView={isMobile ? undefined : { opacity: 1 }}
+          viewport={isMobile ? undefined : { once: false, amount: 0.2 }}
+          transition={isMobile ? undefined : { duration: 0.65, ease: "easeOut" }}
         />
         <motion.div
           className="absolute right-0 top-40 h-[2px] w-1/4 bg-gradient-to-l from-terminal via-terminal/80 to-transparent shadow-[0_0_14px_rgba(16,185,129,0.5)]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: "easeOut" }}
+          initial={isMobile ? false : { opacity: 0 }}
+          whileInView={isMobile ? undefined : { opacity: 1 }}
+          viewport={isMobile ? undefined : { once: false, amount: 0.2 }}
+          transition={isMobile ? undefined : { duration: 0.65, ease: "easeOut" }}
         />
       </div>
 
       <motion.div
         variants={sequence}
-        initial="hidden"
-        animate="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.5 }}
+        initial={isMobile ? false : "hidden"}
+        animate={isMobile ? undefined : "hidden"}
+        whileInView={isMobile ? undefined : "show"}
+        viewport={isMobile ? undefined : { once: false, amount: 0.5 }}
         className="mx-auto w-full max-w-6xl px-4 pb-16 pt-16 text-center sm:px-6 lg:px-8"
       >
         <motion.div variants={item} className="mx-auto mb-7 w-fit">
@@ -144,7 +146,7 @@ export default function Hero() {
 
       </motion.div>
 
-      {showScrollCue && (
+      {!isMobile && showScrollCue && (
         <motion.button
           type="button"
           onClick={scrollToAbout}

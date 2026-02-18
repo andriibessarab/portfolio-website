@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import useIsMobile from "../hooks/useIsMobile";
 import projects from "../../project-data";
 import siteData from "../../site-data";
 import ProjectCard from "../components/ProjectCard";
@@ -11,6 +12,7 @@ function getColumns(width) {
 }
 
 export default function ProjectsPage() {
+  const isMobile = useIsMobile();
   const [columns, setColumns] = useState(() => {
     if (typeof window === "undefined") return 3;
     return getColumns(window.innerWidth);
@@ -20,6 +22,10 @@ export default function ProjectsPage() {
     const onResize = () => setColumns(getColumns(window.innerWidth));
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    document.title = "Projects | Andrii Bessarab";
   }, []);
 
   return (
@@ -36,14 +42,18 @@ export default function ProjectsPage() {
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 0.55,
-                ease: [0.2, 0.65, 0.3, 0.9],
-                delay: Math.floor(index / columns) * 0.14
-              }}
+              initial={isMobile ? false : { opacity: 0, y: 18 }}
+              whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+              viewport={isMobile ? undefined : { once: true, amount: 0.25 }}
+              transition={
+                isMobile
+                  ? undefined
+                  : {
+                      duration: 0.55,
+                      ease: [0.2, 0.65, 0.3, 0.9],
+                      delay: Math.floor(index / columns) * 0.14
+                    }
+              }
             >
               <ProjectCard project={project} />
             </motion.div>

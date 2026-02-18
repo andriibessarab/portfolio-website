@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import useIsMobile from "../hooks/useIsMobile";
 import projects from "../../project-data";
 import siteData from "../../site-data";
 import ProjectCard from "./ProjectCard";
@@ -14,6 +15,8 @@ const featuredByName = siteData.featuredProjects.names
 const featured = featuredByName.length > 0 ? featuredByName : projects.filter((project) => project.featured).slice(0, 3);
 
 export default function FeaturedProjects() {
+  const isMobile = useIsMobile();
+
   return (
     <SectionReveal id="featured-projects" kicker="// 01" title={siteData.featuredProjects.title}>
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -27,26 +30,34 @@ export default function FeaturedProjects() {
       </div>
 
       <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={{
-          hidden: {},
-          show: {
-            transition: {
-              staggerChildren: 0.12
-            }
-          }
-        }}
+        initial={isMobile ? false : "hidden"}
+        whileInView={isMobile ? undefined : "show"}
+        viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
+        variants={
+          isMobile
+            ? undefined
+            : {
+                hidden: {},
+                show: {
+                  transition: {
+                    staggerChildren: 0.12
+                  }
+                }
+              }
+        }
         className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
       >
         {featured.map((project) => (
           <motion.div
             key={project.title}
-            variants={{
-              hidden: { opacity: 0, y: 24 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-            }}
+            variants={
+              isMobile
+                ? undefined
+                : {
+                    hidden: { opacity: 0, y: 24 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+                  }
+            }
           >
             <ProjectCard project={project} />
           </motion.div>

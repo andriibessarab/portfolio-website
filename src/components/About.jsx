@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import useIsMobile from "../hooks/useIsMobile";
 import SectionReveal from "./SectionReveal";
 import siteData from "../../site-data";
 
@@ -58,6 +59,7 @@ function GalleryImage({ base, className }) {
 
 export default function About() {
   const about = siteData.about;
+  const isMobile = useIsMobile();
   const cubeFieldRef = useRef(null);
   const [activeImage, setActiveImage] = useState(null);
   const [isGalleryInteractive, setIsGalleryInteractive] = useState(false);
@@ -117,16 +119,16 @@ export default function About() {
                 <span className="pointer-events-none absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-blueprint/20" />
 
                 <motion.div
-                  className="group/cube relative h-16 w-16 cursor-grab active:cursor-grabbing"
-                  drag
-                  dragConstraints={cubeFieldRef}
-                  dragMomentum
-                  dragElastic={0.18}
-                  dragTransition={{ bounceStiffness: 760, bounceDamping: 16 }}
-                  whileDrag={{ scale: 1.04, cursor: "grabbing" }}
+                  className={`group/cube relative h-16 w-16 ${isMobile ? "cursor-default" : "cursor-grab active:cursor-grabbing"}`}
+                  drag={!isMobile}
+                  dragConstraints={isMobile ? undefined : cubeFieldRef}
+                  dragMomentum={!isMobile}
+                  dragElastic={isMobile ? 0 : 0.18}
+                  dragTransition={isMobile ? undefined : { bounceStiffness: 760, bounceDamping: 16 }}
+                  whileDrag={isMobile ? undefined : { scale: 1.04, cursor: "grabbing" }}
                   style={{ transformStyle: "preserve-3d" }}
-                  animate={{ rotateX: [0, 360], rotateY: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  animate={isMobile ? undefined : { rotateX: [0, 360], rotateY: [0, 360] }}
+                  transition={isMobile ? undefined : { duration: 20, repeat: Infinity, ease: "linear" }}
                 >
                   <div
                     className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
