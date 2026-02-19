@@ -105,62 +105,64 @@ export default function About() {
   return (
     <SectionReveal id="about" title={about.title}>
       <div className="font-sans antialiased tracking-tight">
-        <div className="border-y border-slate-800 py-8 sm:py-10">
+        <div className="border-y border-slate-800 pb-8 pt-3 sm:py-10">
           <div className="grid items-start gap-6 lg:items-stretch lg:grid-cols-[0.78fr_1.22fr]">
-            <div className="mx-auto flex w-full max-w-[22rem] self-stretch items-stretch justify-start lg:mx-0">
-              <div
-                ref={cubeFieldRef}
-                className="relative flex h-full min-h-[17rem] w-full items-center justify-center overflow-hidden border border-blueprint/55 bg-slate-950/45 [perspective:1000px]"
-              >
-                <span className="pointer-events-none absolute left-1 top-1 h-3 w-3 border-l border-t border-blueprint/70" />
-                <span className="pointer-events-none absolute right-1 top-1 h-3 w-3 border-r border-t border-blueprint/70" />
-                <span className="pointer-events-none absolute bottom-1 left-1 h-3 w-3 border-b border-l border-blueprint/70" />
-                <span className="pointer-events-none absolute bottom-1 right-1 h-3 w-3 border-b border-r border-blueprint/70" />
-                <span className="pointer-events-none absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-blueprint/20" />
-
-                <motion.div
-                  className={`group/cube relative h-16 w-16 ${isMobile ? "cursor-default" : "cursor-grab active:cursor-grabbing"}`}
-                  drag={!isMobile}
-                  dragConstraints={isMobile ? undefined : cubeFieldRef}
-                  dragMomentum={!isMobile}
-                  dragElastic={isMobile ? 0 : 0.18}
-                  dragTransition={isMobile ? undefined : { bounceStiffness: 760, bounceDamping: 16 }}
-                  whileDrag={isMobile ? undefined : { scale: 1.04, cursor: "grabbing" }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  animate={isMobile ? undefined : { rotateX: [0, 360], rotateY: [0, 360] }}
-                  transition={isMobile ? undefined : { duration: 20, repeat: Infinity, ease: "linear" }}
+            {!isMobile ? (
+              <div className="mx-auto flex w-full max-w-[22rem] self-stretch items-stretch justify-start lg:mx-0">
+                <div
+                  ref={cubeFieldRef}
+                  className="relative flex h-full min-h-[17rem] w-full items-center justify-center overflow-hidden border border-blueprint/55 bg-slate-950/45 [perspective:1000px]"
                 >
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "rotateY(180deg) translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "rotateY(90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "rotateY(-90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "rotateX(90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                  <div
-                    className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
-                    style={{ transform: "rotateX(-90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
-                  />
-                </motion.div>
+                  <span className="pointer-events-none absolute left-1 top-1 h-3 w-3 border-l border-t border-blueprint/70" />
+                  <span className="pointer-events-none absolute right-1 top-1 h-3 w-3 border-r border-t border-blueprint/70" />
+                  <span className="pointer-events-none absolute bottom-1 left-1 h-3 w-3 border-b border-l border-blueprint/70" />
+                  <span className="pointer-events-none absolute bottom-1 right-1 h-3 w-3 border-b border-r border-blueprint/70" />
+                  <span className="pointer-events-none absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-blueprint/20" />
 
-                <span className="pointer-events-none absolute bottom-2 right-2 text-[10px] font-mono uppercase tracking-widest text-blue-400/60">
-                  {about.dragHint}
-                </span>
+                  <motion.div
+                    className="group/cube relative h-16 w-16 cursor-grab active:cursor-grabbing"
+                    drag
+                    dragConstraints={cubeFieldRef}
+                    dragMomentum
+                    dragElastic={0.18}
+                    dragTransition={{ bounceStiffness: 760, bounceDamping: 16 }}
+                    whileDrag={{ scale: 1.04, cursor: "grabbing" }}
+                    style={{ transformStyle: "preserve-3d" }}
+                    animate={{ rotateX: [0, 360], rotateY: [0, 360] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  >
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "rotateY(180deg) translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "rotateY(90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "rotateY(-90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "rotateX(90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                    <div
+                      className="absolute inset-0 border border-blue-500/50 bg-blue-900/10 shadow-[inset_0_0_16px_rgba(59,130,246,0.28)] transition-colors duration-200 group-hover/cube:border-terminal/70 group-hover/cube:bg-emerald-900/10 group-hover/cube:shadow-[inset_0_0_16px_rgba(16,185,129,0.35)]"
+                      style={{ transform: "rotateX(-90deg) translateZ(32px)", backfaceVisibility: "hidden" }}
+                    />
+                  </motion.div>
+
+                  <span className="pointer-events-none absolute bottom-2 right-2 text-[10px] font-mono uppercase tracking-widest text-blue-400/60">
+                    {about.dragHint}
+                  </span>
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div className="flex h-full flex-col">
               <div className="grid grid-cols-1 gap-4">

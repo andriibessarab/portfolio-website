@@ -92,10 +92,11 @@ export default function Hero() {
 
       <motion.div
         variants={sequence}
-        initial={isMobile ? false : "hidden"}
-        animate={isMobile ? undefined : "hidden"}
+        initial={isMobile ? { opacity: 0 } : "hidden"}
+        animate={isMobile ? { opacity: 1 } : "hidden"}
         whileInView={isMobile ? undefined : "show"}
         viewport={isMobile ? undefined : { once: false, amount: 0.5 }}
+        transition={isMobile ? { duration: 0.45, ease: "easeOut" } : undefined}
         className="mx-auto w-full max-w-6xl px-4 pb-16 pt-16 text-center sm:px-6 lg:px-8"
       >
         <motion.div variants={item} className="mx-auto mb-7 w-fit">

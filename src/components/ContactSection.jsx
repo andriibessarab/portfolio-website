@@ -37,8 +37,8 @@ export default function ContactSection() {
       className="scroll-mt-24 py-16 sm:scroll-mt-28 sm:py-20"
     >
       <div className="mb-5 h-px w-full origin-left bg-gradient-to-r from-blueprint via-terminal/60 to-transparent" />
-      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-14">
-        <section className="self-start lg:pr-6">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-14">
+        <section className="w-full self-start px-1 sm:px-0 lg:pr-6">
           <h2 className="font-tech text-2xl tracking-wide text-slate-100 sm:text-3xl">{contact.title}</h2>
           <p className="mt-3 max-w-md text-sm text-slate-400">{contact.description}</p>
 
@@ -77,7 +77,7 @@ export default function ContactSection() {
           </div>
         </section>
 
-        <section className="self-start border border-slate-800 bg-slate-900/45 p-5 sm:p-6">
+        <section className="w-full self-start border border-slate-800 bg-slate-900/45 px-3 py-5 sm:p-6">
           <h3 className="font-tech text-sm uppercase tracking-[0.16em] text-blueprint">{form.title}</h3>
           <form action={form.action} method="POST" className="mt-6 space-y-6">
             <input type="hidden" name="_subject" value={form.subject} />
